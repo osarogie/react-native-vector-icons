@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   Alert,
-  Image,
+  Keyboard,
+  Platform,
   SectionList,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
   View,
 } from './react-native';
 
+import IconList from './IconList';
 import ICON_SETS from './icon-sets';
 
 const BUTTONS = [
@@ -81,18 +83,6 @@ const INLINE = [
   },
 ];
 
-const SYNCHROUNOUS = [
-  {
-    name: 'synchronous',
-    children: (
-      <Image
-        source={FontAwesome.getImageSourceSync('check', 40, 'green')}
-        style={{ height: 40, width: 40 }}
-      />
-    ),
-  },
-];
-
 const styles = StyleSheet.create({
   sectionHeader: {
     paddingVertical: 5,
@@ -146,7 +136,9 @@ const renderButton = ({ item }) => (
   </View>
 );
 
-const renderRow = ({ item }) => <View style={styles.row}>{item.children}</View>;
+const renderInline = ({ item }) => (
+  <View style={styles.row}>{item.children}</View>
+);
 
 const renderStyling = ({ item }) => (
   <View style={styles.row}>
@@ -161,8 +153,7 @@ export default class IconSetsList extends PureComponent {
     sections: [
       { title: 'ICON SETS', data: ICON_SETS },
       { title: 'BUTTONS', data: BUTTONS, renderItem: renderButton },
-      { title: 'INLINE', data: INLINE, renderItem: renderRow },
-      { title: 'SYNCHROUNOUS', data: SYNCHROUNOUS, renderItem: renderRow },
+      { title: 'INLINE', data: INLINE, renderItem: renderInline },
       { title: 'STYLING', data: STYLING, renderItem: renderStyling },
     ],
   };
